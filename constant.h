@@ -6,7 +6,7 @@
 //BASE
 
 const Vector2 WINDOW_SIZE = { 600,600 };
-const int FRAME_LIMIT = 144;
+const int FRAME_LIMIT = 80;
 const Color BACKGROUND_COLOR = BLACK;
 
 //CAR

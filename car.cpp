@@ -6,15 +6,15 @@ Car::Car(){
 
 	this->maxVelocity = 350;
 	this->maxVelocityBack = maxVelocity / 2.0;
-	this->acceleration = 1;
+	this->acceleration = 150;
 	this->velocityMag = 0;
 
 	this->rotation = 0;
 	this->rotationAcceleration = 1;
 
-	this->dragForce = .002;
+	this->dragForce = .2;
 	this->baseDrag = dragForce;
-	this->handBrakeDrag = .03;
+	this->handBrakeDrag = 4;
 
 	this->size = CAR_SIZE;
 	this->color = WHITE;
@@ -30,15 +30,15 @@ Car::Car(Vector2 position) {
 
 	this->maxVelocity = 350;
 	this->maxVelocityBack = maxVelocity / 2.0;
-	this->acceleration = 1;
+	this->acceleration = 150;
 	this->velocityMag = 0;
 
 	this->rotation = 0;
 	this->rotationAcceleration = 1;
 
-	this->dragForce = .002;
+	this->dragForce = .2;
 	this->baseDrag = dragForce;
-	this->handBrakeDrag = .3;
+	this->handBrakeDrag = 4;
 
 	this->size = CAR_SIZE;
 	this->color = WHITE;
@@ -67,14 +67,14 @@ void Car::Update(float dt)
 	//Movements
 	if (IsKeyDown(KEY_W)) {
 		if (velocityMag < maxVelocity) {
-			velocity.x += acceleration;
-			velocity.y += acceleration;
+			velocity.x += acceleration * dt;
+			velocity.y += acceleration * dt;
 		}
 	}
 	if (IsKeyDown(KEY_S)) {
 		if (velocityMag > -maxVelocityBack) {
-			velocity.x -= acceleration;
-			velocity.y -= acceleration;
+			velocity.x -= acceleration * dt;
+			velocity.y -= acceleration * dt;
 		}
 	}
 	if (IsKeyDown(KEY_A)) {	
@@ -102,8 +102,8 @@ void Car::Update(float dt)
 	position.y += forward.y * velocity.y * dt;
 
 	//Drag
-	velocity.x -= dragForce / 1 * velocity.x;
-	velocity.y -= dragForce / 1 * velocity.y;
+	velocity.x -= (dragForce / 1 * velocity.x) * dt;
+	velocity.y -= (dragForce / 1 * velocity.y) * dt;
 }
 
 void Car::Draw()
