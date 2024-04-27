@@ -18,26 +18,14 @@ private:
 	Vector2 position;
 	Vector2 velocity;
 
-	int maxVelocity;
-	int maxVelocityBack;
-	int acceleration;
 	float velocityMag;
 
 	float rotation;
-	int rotationAcceleration;
-	int maxRotationSpeed;
-	int minSpeedForRotation;
 
 	float dragForce;
-	float baseDrag;
-	int handBrakeDrag;
 
 	//Style
-	Vector2 size;
 	Color color;
-
-	//For Draw
-	Vector2 center;
 
 	//Extern
 	int checkPoint;
