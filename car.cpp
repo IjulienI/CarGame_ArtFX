@@ -26,7 +26,7 @@ Car::Car(){
 	Init();
 }
 
-Car::Car(Vector2 position, float rotation) {
+Car::Car(Vector2 position, float rotation, Color color) {
 	this->position = position;
 	this->velocity = { 0,0 };
 
@@ -45,7 +45,7 @@ Car::Car(Vector2 position, float rotation) {
 	this->handBrakeDrag = 4;
 
 	this->size = CAR_SIZE;
-	this->color = WHITE;
+	this->color = color;
 
 	this->center = { size.x / 2,size.y / 2 };
 

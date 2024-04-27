@@ -7,7 +7,7 @@ class Car
 {
 public:
 	Car();
-	Car(Vector2 position, float rotation);
+	Car(Vector2 position, float rotation, Color color);
 	~Car();
 
 	void Init();
@@ -18,19 +18,19 @@ private:
 	Vector2 position;
 	Vector2 velocity;
 
-	float maxVelocity;
-	float maxVelocityBack;
-	float acceleration;
+	int maxVelocity;
+	int maxVelocityBack;
+	int acceleration;
 	float velocityMag;
 
 	float rotation;
-	float rotationAcceleration;
-	float maxRotationSpeed;
+	int rotationAcceleration;
+	int maxRotationSpeed;
 	int minSpeedForRotation;
 
 	float dragForce;
 	float baseDrag;
-	float handBrakeDrag;
+	int handBrakeDrag;
 
 	//Style
 	Vector2 size;
