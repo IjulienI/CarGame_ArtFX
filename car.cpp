@@ -6,11 +6,13 @@ Car::Car(){
 
 	this->maxVelocity = 350;
 	this->maxVelocityBack = maxVelocity / 2.0;
-	this->acceleration = 150;
+	this->acceleration = 100;
 	this->velocityMag = 0;
 
 	this->rotation = 0;
-	this->rotationAcceleration = 1;
+	this->rotationAcceleration = 15000;
+	this->maxRotationSpeed = 150;
+	this->minSpeedForRotation = 50;
 
 	this->dragForce = .2;
 	this->baseDrag = dragForce;
@@ -24,17 +26,19 @@ Car::Car(){
 	Init();
 }
 
-Car::Car(Vector2 position) {
+Car::Car(Vector2 position, float rotation) {
 	this->position = position;
 	this->velocity = { 0,0 };
 
 	this->maxVelocity = 350;
 	this->maxVelocityBack = maxVelocity / 2.0;
-	this->acceleration = 150;
+	this->acceleration = 100;
 	this->velocityMag = 0;
 
-	this->rotation = 0;
-	this->rotationAcceleration = 1;
+	this->rotation = rotation;
+	this->rotationAcceleration = 15000;
+	this->maxRotationSpeed = 150;
+	this->minSpeedForRotation = 50;
 
 	this->dragForce = .2;
 	this->baseDrag = dragForce;
@@ -78,13 +82,31 @@ void Car::Update(float dt)
 		}
 	}
 	if (IsKeyDown(KEY_A)) {	
-		if (velocityMag != 0) {
-			rotation -= (rotationAcceleration / 1 * sqrtf(velocity.x * velocity.x + velocity.y * velocity.y)) * dt;
+		if (velocityMag > minSpeedForRotation) {
+			float rotationSpeed = rotationAcceleration / sqrtf(velocity.x * velocity.x + velocity.y * velocity.y);
+
+			//Clamp RotationSpeed
+			if (rotationSpeed > maxRotationSpeed) {
+				rotationSpeed = maxRotationSpeed;
+
+				rotation -= rotationSpeed * dt;
+			}
+			else rotation -= rotationSpeed * dt;
+			std::cout << rotationSpeed << std::endl;
 		}		
 	}
 	if (IsKeyDown(KEY_D)) {
-		if (velocityMag != 0) {
-			rotation += (rotationAcceleration / 1 * sqrtf(velocity.x * velocity.x + velocity.y * velocity.y)) * dt;
+		if (velocityMag > minSpeedForRotation) {
+			float rotationSpeed = rotationAcceleration / sqrtf(velocity.x * velocity.x + velocity.y * velocity.y);
+
+			//Clamp RotationSpeed
+			if (rotationSpeed > maxRotationSpeed) {
+				rotationSpeed = maxRotationSpeed;
+
+				rotation += rotationSpeed * dt;
+			}
+			else rotation += rotationSpeed * dt;
+			std::cout << rotationSpeed << std::endl;
 		}
 	}
 
