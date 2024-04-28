@@ -29,10 +29,11 @@ void Game::Init() {
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
 		if (entry.path().extension() == ".png") {
 			std::string filePath = entry.path().string();			
-			if (index = mapIndex) {
+			if (index == mapIndex) {
 				UnloadImage(mapImage);
 				mapImage = LoadImage(filePath.c_str());
 			}
+			index++;
 		}
 	}
 	Color* pixels = LoadImageColors(mapImage);
@@ -60,6 +61,16 @@ void Game::Init() {
 
 void Game::Update(float dt) {
 	player->Update(dt);
+	for (int i = 0; i < TILE_NUM.x; i++) {
+		for (int j = 0; j < TILE_NUM.y; j++) {
+			if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == ROAD) {
+				player->SetOnRoad(true);
+			}
+			else if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == GRASS) {
+				player->SetOnRoad(false);
+			}
+		}
+	}
 }
 
 void Game::Draw() {	

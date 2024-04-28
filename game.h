@@ -5,6 +5,7 @@
 #include "car.h"
 #include "constant.h"
 #include "tile.h"
+#include "vector"
 #include "filesystem"
 
 class Game : public Scene {
@@ -19,5 +20,6 @@ public:
 private:
 	Tile* map[16][11];
 	Car* player;
+	std::vector<Tile*> obstacles;
 	int mapIndex;
 };

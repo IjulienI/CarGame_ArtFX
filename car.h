@@ -2,6 +2,7 @@
 #include "constant.h"
 #include <cmath>
 #include <iostream>
+#include "tile.h"
 
 class Car
 {
@@ -13,6 +14,9 @@ public:
 	void Init();
 	void Update(float dt);
 	void Draw();
+
+	bool IsIn(Tile& tile);
+	void SetOnRoad(bool onRoad);
 private:
 	//Movements (base)
 	Vector2 position;
@@ -23,6 +27,8 @@ private:
 	float rotation;
 
 	float dragForce;
+
+	bool onRoad;
 
 	//Style
 	Color color;

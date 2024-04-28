@@ -33,3 +33,11 @@ void Tile::SetTexture(Texture2D& texture) {
 void Tile::Draw() {
 	DrawTexture(texture, position.x, position.y, WHITE);
 }
+
+Vector2 Tile::GetPosition() {
+	return position;
+}
+
+TileType Tile::GetType() {
+	return type;
+}

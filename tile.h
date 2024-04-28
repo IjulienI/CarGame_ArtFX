@@ -12,6 +12,9 @@ public:
 	void SetType(TileType type);
 	void SetTexture(Texture2D& texture);
 	void Draw();
+
+	Vector2 GetPosition();
+	TileType GetType();
 private:
 	Vector2 position;
 	TileType type;

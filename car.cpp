@@ -21,6 +21,8 @@ Car::Car(){
 
 	this->dragForce = CAR_DRAG_FORCE;
 
+	this->onRoad = true;
+
 	this->color = RED;
 
 	Init();
@@ -35,6 +37,8 @@ Car::Car(Vector2 position, float rotation, Color color) {
 	this->rotation = rotation;
 
 	this->dragForce = CAR_DRAG_FORCE;
+
+	this->onRoad = true;
 
 	this->color = color;
 
@@ -113,8 +117,14 @@ void Car::Update(float dt)
 	position.y += forward.y * velocity.y * dt;
 
 	//Drag
-	velocity.x -= (dragForce / 1 * velocity.x) * dt;
-	velocity.y -= (dragForce / 1 * velocity.y) * dt;
+	if (onRoad) {
+		velocity.x -= (dragForce / 1 * velocity.x) * dt;
+		velocity.y -= (dragForce / 1 * velocity.y) * dt;
+	}
+	else {
+		velocity.x -= ((dragForce * 15) / 1 * velocity.x) * dt;
+		velocity.y -= ((dragForce * 15) / 1 * velocity.y) * dt;
+	}
 
 	//Px/s to Km/h
 	std::cout << (velocityMag / PIXELS_PER_METER) * 3.6 << std::endl;
@@ -125,4 +135,13 @@ void Car::Draw()
 	//Draw Car with rotation
 	Rectangle car = { position.x,position.y,CAR_SIZE.x,CAR_SIZE.y };
 	DrawRectanglePro(car,CAR_CENTER, rotation, color);
+}
+
+bool Car::IsIn(Tile& tile) {
+	if (CheckCollisionCircleRec({ position.x, position.y }, 5, { tile.GetPosition().x,tile.GetPosition().y,TILE_SIZE,TILE_SIZE })) return true;
+	return false;
+}
+
+void Car::SetOnRoad(bool onRoad) {
+	this->onRoad = onRoad;
 }
