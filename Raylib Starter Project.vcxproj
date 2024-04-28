@@ -143,6 +143,7 @@
     <ClCompile Include="levelSelection.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="scoreBoard.cpp" />
     <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="levelSelection.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="scoreBoard.h" />
     <ClInclude Include="tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

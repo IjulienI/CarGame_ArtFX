@@ -23,7 +23,7 @@ Car::Car(){
 
 	this->onRoad = true;
 
-	this->color = RED;
+	this->color = WHITE;
 
 	Init();
 }
@@ -47,10 +47,12 @@ Car::Car(Vector2 position, float rotation, Color color) {
 
 Car::~Car(){
 	//Destroy Texture
+	UnloadTexture(texture);
 }
 
 void Car::Init() {
 	//Load Texture
+	texture = LoadTexture("textures/car.png");
 }
 
 void Car::Update(float dt)
@@ -135,7 +137,8 @@ void Car::Draw()
 {
 	//Draw Car with rotation
 	Rectangle car = { position.x,position.y,CAR_SIZE.x,CAR_SIZE.y };
-	DrawRectanglePro(car,CAR_CENTER, rotation, color);
+	//DrawRectanglePro(car,CAR_CENTER, rotation, color);
+	DrawTexturePro(texture, { 0,0,(float)texture.width,(float)texture.height }, car, CAR_CENTER, rotation, color);
 }
 
 bool Car::IsIn(Tile& tile) {

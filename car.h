@@ -19,6 +19,7 @@ public:
 	void SetOnRoad(bool onRoad);
 	void SetPosition(Vector2 position);
 	Vector2 GetPosition();
+
 	void Impact();
 private:
 	//Movements (base)
@@ -36,6 +37,7 @@ private:
 
 	//Style
 	Color color;
+	Texture2D texture;
 
 	//Extern
 	int checkPoint;
