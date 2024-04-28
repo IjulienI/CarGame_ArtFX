@@ -1,7 +1,12 @@
 #include "game.h"
 
-Game::Game() {
-	this->player = new Car();
+Game::Game() {	
+	this->mapIndex = 0;
+	Init();
+}
+
+Game::Game(int index) {
+	this->mapIndex = index;
 	Init();
 }
 
@@ -16,7 +21,20 @@ Game::~Game() {
 void Game::Init() {
 	Texture2D road = LoadTexture("textures/road.png");
 	Texture2D grass = LoadTexture("textures/grass.png");
-	Image mapImage = LoadImage("textures/maps/map1.png");
+	Image mapImage = LoadImage("textures/base.png");
+
+	std::string path = "textures/maps";
+
+	int index = 0;
+	for (const auto& entry : std::filesystem::directory_iterator(path)) {
+		if (entry.path().extension() == ".png") {
+			std::string filePath = entry.path().string();			
+			if (index = mapIndex) {
+				UnloadImage(mapImage);
+				mapImage = LoadImage(filePath.c_str());
+			}
+		}
+	}
 	Color* pixels = LoadImageColors(mapImage);
 
 	int pixelIndex = 0;
@@ -36,6 +54,8 @@ void Game::Init() {
 	}
 	UnloadImage(mapImage);
 	UnloadImageColors(pixels);
+
+	this->player = new Car();
 }
 
 void Game::Update(float dt) {

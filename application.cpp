@@ -36,7 +36,7 @@ void Application::Draw()
 {
 	BeginDrawing();
 
-	ClearBackground(BACKGROUND_COLOR);
+	ClearBackground(BACKGROUND_COLORATION);
 
 	sceneManager->Draw();
 	debug->Draw();

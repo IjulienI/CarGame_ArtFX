@@ -1,6 +1,7 @@
 #include "menu.h"
 
 Menu::Menu() {
+	this->menuButton = { WINDOW_SIZE.x / 2 - GUI_BUTTON_SIZE.x / 2,WINDOW_SIZE.y / 2 + GUI_BUTTON_SIZE.y / 2,GUI_BUTTON_SIZE.x,GUI_BUTTON_SIZE.y };
 }
 
 Menu::~Menu() {
@@ -10,10 +11,10 @@ void Menu::Init() {
 }
 
 void Menu::Update(float dt) {
-	if (IsKeyPressed(KEY_E)) {
-		sceneManager->ChangeScene(GAME);
-	}
 }
 
 void Menu::Draw() {
+	if (GuiButton(menuButton, "MENU")) {
+		sceneManager->ChangeScene(LEVEL_SELECTION);
+	}
 }
