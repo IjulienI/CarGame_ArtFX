@@ -15,8 +15,8 @@ void Application::Init()
 	InitWindow(WINDOW_SIZE.x, WINDOW_SIZE.y, "NoEngine");
 	SetTargetFPS(FRAME_LIMIT);
 
+	sceneManager = new SceneManager();
 	debug = new Debug();
-	car = new Car();
 
 	while (!WindowShouldClose()) {
 		Update();
@@ -29,15 +29,18 @@ void Application::Init()
 void Application::Update()
 {
 	float deltaTime = GetFrameTime();
+	sceneManager->Update(deltaTime);
 	debug->Update(deltaTime);
-	car->Update(deltaTime);
 }
 
 void Application::Draw()
 {
 	BeginDrawing();
+
 	ClearBackground(BACKGROUND_COLOR);
+
+	sceneManager->Draw();
 	debug->Draw();
-	car->Draw();
+
 	EndDrawing();
 }

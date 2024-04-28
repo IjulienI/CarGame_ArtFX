@@ -137,13 +137,21 @@
     <ClCompile Include="application.cpp" />
     <ClCompile Include="car.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="sceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="car.h" />
     <ClInclude Include="constant.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="sceneManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

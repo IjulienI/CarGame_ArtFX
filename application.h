@@ -1,7 +1,7 @@
 #pragma once
 #include "constant.h"
 #include "debug.h"
-#include "car.h"
+#include "sceneManager.h"
 
 class Application
 {
@@ -12,8 +12,6 @@ private:
 	void Init();
 	void Update();
 	void Draw();
-
-	Car* car;
 };
 
 extern Application* app;
