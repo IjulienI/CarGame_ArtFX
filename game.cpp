@@ -46,17 +46,31 @@ void Game::Init() {
 				map[i][j]->SetTexture(road);
 				map[i][j]->SetType(ROAD);
 			}
-			else {
+			else if (pixels[j * mapImage.width + i].r == 0 && pixels[j * mapImage.width + i].g == 255 && pixels[j * mapImage.width + i].b == 21) {
 				map[i][j]->SetTexture(grass);
 				map[i][j]->SetType(GRASS);
+			}
+			else if (pixels[j * mapImage.width + i].r == 255 && pixels[j * mapImage.width + i].g == 0 && pixels[j * mapImage.width + i].b == 0) {
+				map[i][j]->SetTexture(grass);
+				map[i][j]->SetType(OBSTACLE);
+				obstacles.push_back(map[i][j]);
+			}
+			else if (pixels[j * mapImage.width + i].r == 255 && pixels[j * mapImage.width + i].g == 255 && pixels[j * mapImage.width + i].b == 255) {
+				map[i][j]->SetTexture(road);
+				map[i][j]->SetType(FINISH);
+				this->player = new Car();
+				player->SetPosition(map[i][j]->GetCenter());
+			}
+			else if (pixels[j * mapImage.width + i].r == 0 && pixels[j * mapImage.width + i].g == 0 && pixels[j * mapImage.width + i].b == 255) {
+				map[i][j]->SetTexture(road);
+				map[i][j]->SetType(CHECKPOINTS);
+				checkPoints.push_back(map[i][j]);
 			}
 			pixelIndex++;
 		}
 	}
 	UnloadImage(mapImage);
 	UnloadImageColors(pixels);
-
-	this->player = new Car();
 }
 
 void Game::Update(float dt) {
@@ -66,9 +80,33 @@ void Game::Update(float dt) {
 			if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == ROAD) {
 				player->SetOnRoad(true);
 			}
+			else if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == FINISH) {
+				player->SetOnRoad(true);
+				int activatedCheckpoints = 0;
+				for (int i = 0; i < checkPoints.size(); i++) {
+					if (checkPoints[i]->GetActivated()) {
+						activatedCheckpoints++;
+					}
+				}
+				if (activatedCheckpoints == checkPoints.size()) {
+					//TODO + lap ?
+					for (int i = 0; i < checkPoints.size(); i++) {
+						checkPoints[i]->SetActivated(false);
+					}
+				}
+			}
+			else if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == CHECKPOINTS) {
+				player->SetOnRoad(true);
+				map[i][j]->SetActivated(true);
+			}
 			else if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == GRASS) {
 				player->SetOnRoad(false);
 			}
+		}
+	}
+	for (int i = 0; i < obstacles.size(); i++) {
+		if (CheckCollisionCircleRec(player->GetPosition(), 5, { obstacles[i]->GetPosition().x,obstacles[i]->GetPosition().y,TILE_SIZE,TILE_SIZE })) {
+			player->Impact();
 		}
 	}
 }

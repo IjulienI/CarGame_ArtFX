@@ -55,6 +55,7 @@ void Car::Init() {
 
 void Car::Update(float dt)
 {
+	this->dt = dt;
 	velocityMag = (velocity.x + velocity.y);
 	
 	/////////////////////////////////////////////
@@ -112,7 +113,7 @@ void Car::Update(float dt)
 	}
 
 	//Move
-	Vector2 forward = { cos(rotation * (PI / 180.0)),sin(rotation * (PI / 180.0)) };
+	forward = { (float)cos(rotation * (PI / 180.0)),(float)sin(rotation * (PI / 180.0)) };
 	position.x += forward.x * velocity.x * dt;
 	position.y += forward.y * velocity.y * dt;
 
@@ -144,4 +145,18 @@ bool Car::IsIn(Tile& tile) {
 
 void Car::SetOnRoad(bool onRoad) {
 	this->onRoad = onRoad;
+}
+
+void Car::SetPosition(Vector2 position) {
+	this->position = position;
+}
+
+Vector2 Car::GetPosition() {
+	return position;
+}
+
+void Car::Impact() {
+	velocity = { 0,0 };
+	position.x -= forward.x * CAR_ACCELERATION * dt;
+	position.y -= forward.y * CAR_ACCELERATION * dt;
 }

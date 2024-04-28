@@ -21,5 +21,6 @@ private:
 	Tile* map[16][11];
 	Car* player;
 	std::vector<Tile*> obstacles;
+	std::vector<Tile*> checkPoints;
 	int mapIndex;
 };

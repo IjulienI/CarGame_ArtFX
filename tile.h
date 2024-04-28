@@ -14,10 +14,16 @@ public:
 	void Draw();
 
 	Vector2 GetPosition();
+	Vector2 GetCenter();
 	TileType GetType();
+
+	bool GetActivated();
+	void SetActivated(bool status);
 private:
 	Vector2 position;
 	TileType type;
 	Texture2D texture;
+
+	bool isActivated;
 };
 

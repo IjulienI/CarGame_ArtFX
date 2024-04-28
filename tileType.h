@@ -6,4 +6,5 @@ enum TileType {
 	FINISH,
 	OBSTACLE,
 	SPECTATORS,
+	CHECKPOINTS
 };

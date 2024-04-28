@@ -17,10 +17,14 @@ public:
 
 	bool IsIn(Tile& tile);
 	void SetOnRoad(bool onRoad);
+	void SetPosition(Vector2 position);
+	Vector2 GetPosition();
+	void Impact();
 private:
 	//Movements (base)
 	Vector2 position;
 	Vector2 velocity;
+	Vector2 forward;
 
 	float velocityMag;
 
@@ -35,5 +39,6 @@ private:
 
 	//Extern
 	int checkPoint;
+	float dt;
 };
 
