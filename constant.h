@@ -28,6 +28,8 @@ const int CAR_HANDBRAKE_DRAG = 4;
 
 const Vector2 CAR_CENTER = { CAR_SIZE.x ,CAR_SIZE.y / 2 };
 
+const int CAR_CIRCLE_COLLIDER = 5;
+
 
 //TILES
 
@@ -38,5 +40,8 @@ const Vector2 TILE_SPACER = {(TILE_SIZE * 0.875) / 2,(TILE_SIZE * 0.25) / 2};// 
 
 //GUI
 const Vector2 GUI_BUTTON_SIZE = { 100,50 };
+
+//GAME
+const int GAME_MAX_LAP = 3;
 
 #endif

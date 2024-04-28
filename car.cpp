@@ -139,7 +139,7 @@ void Car::Draw()
 }
 
 bool Car::IsIn(Tile& tile) {
-	if (CheckCollisionCircleRec({ position.x, position.y }, 5, { tile.GetPosition().x,tile.GetPosition().y,TILE_SIZE,TILE_SIZE })) return true;
+	if (CheckCollisionCircleRec({ position.x, position.y }, CAR_CIRCLE_COLLIDER, { tile.GetPosition().x,tile.GetPosition().y,TILE_SIZE,TILE_SIZE })) return true;
 	return false;
 }
 

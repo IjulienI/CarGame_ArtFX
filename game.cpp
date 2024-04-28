@@ -2,15 +2,18 @@
 
 Game::Game() {	
 	this->mapIndex = 0;
+	this->lap = 0;
 	Init();
 }
 
 Game::Game(int index) {
 	this->mapIndex = index;
+	this->lap = 0;
 	Init();
 }
 
 Game::~Game() {
+	delete player;
 	for (int i = 0; i < TILE_NUM.x; i++) {
 		for (int j = 0; j < TILE_NUM.y; j++) {
 			map[i][j]->~Tile();
@@ -75,6 +78,7 @@ void Game::Init() {
 
 void Game::Update(float dt) {
 	player->Update(dt);
+
 	for (int i = 0; i < TILE_NUM.x; i++) {
 		for (int j = 0; j < TILE_NUM.y; j++) {
 			if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == ROAD) {
@@ -89,7 +93,10 @@ void Game::Update(float dt) {
 					}
 				}
 				if (activatedCheckpoints == checkPoints.size()) {
-					//TODO + lap ?
+					lap++;
+					if (lap == GAME_MAX_LAP) {
+						sceneManager->ChangeScene(MENU);
+					}
 					for (int i = 0; i < checkPoints.size(); i++) {
 						checkPoints[i]->SetActivated(false);
 					}
@@ -105,10 +112,16 @@ void Game::Update(float dt) {
 		}
 	}
 	for (int i = 0; i < obstacles.size(); i++) {
-		if (CheckCollisionCircleRec(player->GetPosition(), 5, { obstacles[i]->GetPosition().x,obstacles[i]->GetPosition().y,TILE_SIZE,TILE_SIZE })) {
+		//C'est pas beau, j'avais autre chose en tete mais j'ai perdu mon temps sur d'autres problèmes
+		if (CheckCollisionCircleRec(player->GetPosition(), CAR_CIRCLE_COLLIDER, { obstacles[i]->GetPosition().x,obstacles[i]->GetPosition().y,TILE_SIZE,TILE_SIZE })) {
 			player->Impact();
 		}
 	}
+
+	currentTime += 1 * dt;
+	minutes = (int)(currentTime / 60);
+	seconds = (int)(currentTime) % 60;
+	milliseconds = (int)(currentTime * 1000) % 1000;
 }
 
 void Game::Draw() {	
@@ -118,4 +131,6 @@ void Game::Draw() {
 		}
 	}
 	player->Draw();
+	DrawText(TextFormat("LAP : %i/%i", lap, GAME_MAX_LAP), 35, 10, 32, PURPLE);
+	DrawText(TextFormat("%02i:%02i:%03i", minutes, seconds, milliseconds), 35, 47, 28, WHITE);
 }

@@ -20,7 +20,15 @@ public:
 private:
 	Tile* map[16][11];
 	Car* player;
+
 	std::vector<Tile*> obstacles;
 	std::vector<Tile*> checkPoints;
+
 	int mapIndex;
+	int lap;
+
+	float currentTime;
+	int minutes;
+	int seconds;
+	int milliseconds;
 };
