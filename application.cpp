@@ -6,8 +6,7 @@ Application::Application()
 {
 	Init();	
 }
-Application::~Application()
-{
+Application::~Application(){
 }
 
 void Application::Init()

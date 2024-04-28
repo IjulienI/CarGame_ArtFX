@@ -1,6 +1,6 @@
 #pragma once
 
-enum Tiles {
+enum TileType {
 	GRASS,
 	ROAD,
 	FINISH,

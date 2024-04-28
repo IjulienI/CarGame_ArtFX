@@ -21,7 +21,7 @@ Car::Car(){
 
 	this->dragForce = CAR_DRAG_FORCE;
 
-	this->color = WHITE;
+	this->color = RED;
 
 	Init();
 }

@@ -27,4 +27,10 @@ const int CAR_HANDBRAKE_DRAG = 4;
 
 const Vector2 CAR_CENTER = { CAR_SIZE.x ,CAR_SIZE.y / 2 };
 
+//TILES
+
+const int TILE_SIZE = 64;
+const Vector2 TILE_NUM = { (int)(WINDOW_SIZE.x / TILE_SIZE), (int)(WINDOW_SIZE.y / TILE_SIZE) };
+const Vector2 TILE_SPACER = {(TILE_SIZE * 0.875) / 2,(TILE_SIZE * 0.25) / 2};// Je sors pas les chiffres au pif, j'ai calculé mais je savais pas comment récupérer seulement décimales...
+
 #endif
