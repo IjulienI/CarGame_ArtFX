@@ -7,6 +7,8 @@
 #include "tile.h"
 #include "vector"
 #include "filesystem"
+#include <json.hpp>
+#include <fstream>
 
 class Game : public Scene {
 public:

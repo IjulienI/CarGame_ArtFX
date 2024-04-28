@@ -24,6 +24,8 @@ Game::~Game() {
 void Game::Init() {
 	Texture2D road = LoadTexture("textures/road.png");
 	Texture2D grass = LoadTexture("textures/grass.png");
+	Texture2D finish = LoadTexture("textures/finish.png");
+	Texture2D obstacle = LoadTexture("textures/obstacle.png");
 	Image mapImage = LoadImage("textures/base.png");
 
 	std::string path = "textures/maps";
@@ -54,12 +56,12 @@ void Game::Init() {
 				map[i][j]->SetType(GRASS);
 			}
 			else if (pixels[j * mapImage.width + i].r == 255 && pixels[j * mapImage.width + i].g == 0 && pixels[j * mapImage.width + i].b == 0) {
-				map[i][j]->SetTexture(grass);
+				map[i][j]->SetTexture(obstacle);
 				map[i][j]->SetType(OBSTACLE);
 				obstacles.push_back(map[i][j]);
 			}
 			else if (pixels[j * mapImage.width + i].r == 255 && pixels[j * mapImage.width + i].g == 255 && pixels[j * mapImage.width + i].b == 255) {
-				map[i][j]->SetTexture(road);
+				map[i][j]->SetTexture(finish);
 				map[i][j]->SetType(FINISH);
 				this->player = new Car();
 				player->SetPosition(map[i][j]->GetCenter());
