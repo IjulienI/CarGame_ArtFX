@@ -9,6 +9,13 @@
 #include "filesystem"
 #include <json.hpp>
 #include <fstream>
+#include <ctime>
+
+struct Lap {
+	int minutes;
+	int seconds;
+	int milliseconds;
+};
 
 class Game : public Scene {
 public:
@@ -20,6 +27,9 @@ public:
 	void Update(float dt) override;
 	void Draw() override;
 private:
+	void Save();
+	nlohmann::json LapToJson(const Lap& lap);
+
 	Tile* map[16][11];
 	Car* player;
 

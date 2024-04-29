@@ -130,7 +130,7 @@ void Car::Update(float dt)
 	}
 
 	//Px/s to Km/h
-	std::cout << (velocityMag / PIXELS_PER_METER) * 3.6 << std::endl;
+	//std::cout << (velocityMag / PIXELS_PER_METER) * 3.6 << std::endl;
 }
 
 void Car::Draw()

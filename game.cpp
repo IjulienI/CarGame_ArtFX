@@ -102,6 +102,7 @@ void Game::Update(float dt) {
 					for (int i = 0; i < checkPoints.size(); i++) {
 						checkPoints[i]->SetActivated(false);
 					}
+					Save();
 				}
 			}
 			else if (player->IsIn(*map[i][j]) && map[i][j]->GetType() == CHECKPOINTS) {
@@ -127,7 +128,7 @@ void Game::Update(float dt) {
 }
 
 void Game::Draw() {	
-	for (int i = 0; i < TILE_NUM.x; i++) {
+	for (int i = 0; i < TILE_NUM.x; i++) {	
 		for (int j = 0; j < TILE_NUM.y; j++) {
 			map[i][j]->Draw();
 		}
@@ -135,4 +136,46 @@ void Game::Draw() {
 	player->Draw();
 	DrawText(TextFormat("LAP : %i/%i", lap, GAME_MAX_LAP), 35, 10, 32, PURPLE);
 	DrawText(TextFormat("%02i:%02i:%03i", minutes, seconds, milliseconds), 35, 47, 28, WHITE);
+}
+
+void Game::Save(){
+	//Save exist ?
+	std::filesystem::path dir = "save";
+
+	if (!std::filesystem::exists(dir)) {
+		std::filesystem::create_directory(dir);
+	}
+	//lapJson exist ?
+	nlohmann::json lapJson;
+
+	std::filesystem::path jsonDir = "save/lapTime.json";
+	if (!std::filesystem::exists(jsonDir)) {
+
+		std::ifstream jsonInfo(jsonDir);
+		if (jsonInfo.is_open()) {
+			jsonInfo >> lapJson;
+			jsonInfo.close();
+		}
+	}	
+
+	Lap currentLap = { minutes,seconds,milliseconds };
+
+	std::time_t currentDate = std::time(nullptr);
+
+	char* date = std::ctime(&currentDate);
+
+	lapJson[TextFormat("lap %i",date)] = LapToJson(currentLap);
+
+	std::ofstream file("save/lapTime.json");
+	file << lapJson.dump(4);
+	file.close();
+}
+
+nlohmann::json Game::LapToJson(const Lap& lap)
+{
+	nlohmann::json j;
+	j["minutes"] = lap.minutes;
+	j["seconds"] = lap.seconds;
+	j["milliseconds"] = lap.milliseconds;
+	return j;
 }
